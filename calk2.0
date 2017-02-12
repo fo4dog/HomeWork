@@ -1,0 +1,286 @@
+from tkinter import*
+import time
+def pr1():
+    global text1
+    text1 += "1"
+    lable.config(text = text1)
+def pr2():
+    global text1
+    text1 += "2"
+    lable.config(text = text1)
+def pr3():
+    global text1
+    text1 += "3"
+    lable.config(text = text1)
+def pr4():
+    global text1
+    text1 += "4"
+    lable.config(text = text1)
+def pr5():
+    global text1
+    text1 += "5"
+    lable.config(text = text1)
+def pr6():
+    global text1
+    text1 += "6"
+    lable.config(text = text1)
+def pr7():
+    global text1
+    text1 += "7"
+    lable.config(text = text1)
+def pr8():
+    global text1
+    text1 += "8"
+    lable.config(text = text1)
+def pr9():
+    global text1
+    text1 += "9"
+    lable.config(text = text1)
+def pr0():
+    global text1
+    text1 += "0"
+    lable.config(text = text1)
+def ce():
+    global text1, op
+    text1 = ""
+    lable.config(text = text1)
+    op = None
+    pred = None
+def backs():
+    global text1
+    text1 = text1[0:len(text1)-1:1]
+    lable.config(text = text1)
+def make_op():
+    global text1, pred, op, root
+    if text1 == "":
+        return True
+    if op == None:
+        pred = int(text1)
+        text1 = ""
+        lable.config(text = text1)
+    elif op == "=":
+        text1 = str(pred)
+        lable.config(text = text1)
+    elif op == "+":
+        pred += int(text1)
+        text1 = ""
+        lable.config(text = text1)
+    elif op == "-":
+        pred -= int(text1)
+        text1 = ""
+        lable.config(text = text1)
+    elif op == "*":
+        pred *= int(text1)
+        text1 = ""
+        lable.config(text = text1)
+    elif op == "/":
+        if int(text1) != 0:
+            pred /= int(text1)
+            text1 = ""
+            lable.config(text = text1)
+        else:
+            lable.config(text = "error")
+            def ret():
+                lable.config(text = text1)
+            root.after(1000, ret)
+            return False
+    elif op == 'X^Y':
+        pred = pred * pred * (int(text1)//2)
+        text1 = ""
+        lable.config(text = text1)
+    elif op == 'X^2':
+        pred = int(pred) ** 2
+        text1 = pred
+        lable.config(text = text1)
+    elif op == 'kor':
+        pred = int(pred) ** 0.5
+        text1 = pred
+        lable.config(text = text1)
+    elif op == '+-':
+        pred = int(pred) * 1
+        text1 = pred
+        lable.config(text = text1)
+    elif op  == 'mr':
+        mr = pred
+        text1 = ''
+        lable.config(text = text1)
+    elif op =='mpl':
+        mr += pred
+        text1 = ''
+        lable.config(text = text1)
+        
+    return True
+def plus():
+    global op
+    if make_op():
+        op = "+"
+def kva():
+    global op
+    global pred
+    if make_op():
+        op = 'X^2'
+        pred = pred ** 2
+        lable.config(text = pred)
+
+def minus():
+    global op
+    if make_op():
+        op = "-"
+def st():
+    global op
+    if make_op():
+        op = 'X^Y'
+def cor():
+    global pred
+    global op
+    if make_op():
+        op = 'kor'
+        pred = pred ** 0.5
+        lable.config(text = pred)
+
+
+
+def plmin():
+    global text1
+    text1 = lable.cget('text')
+    lable.config(text=str(int(text1)*(-1)))
+    text1 = lable.cget('text')
+
+def M_set():
+    global text1, memory
+    if text1 != '':
+        text1 = int(lable.cget('text'))
+        memory = text1
+        if memory != 0:
+            memory_set.config(text='M')
+            text1 = ''
+            lable.config(text=text1)
+        else:
+            memory_set.config(text='')        
+    
+def M_clear():
+    global memory
+    memory = 0
+    memory_set.config(text='')
+    text1 = ''
+    lable.config(text=text1)
+    
+def MR():
+    global memory, text1
+    lable.config(text = str(memory))
+    text1 = lable.cget('text')
+    text1 = ''
+    lable.config(text=text1)
+
+def M_plus():
+    global memory, text1
+    if text1 != '':
+        memory += int(text1)
+        if memory != 0:
+            memory_set.config(text='M')
+            text1 = ''
+            lable.config(text=text1)
+        else:
+            memory_set.config(text='')
+
+def M_minus():
+    global memory, text1
+    if text1 != '':
+        memory -= int(text1)
+        if memory != 0:
+            memory_set.config(text='M')
+        else:
+            memory_set.config(text='')
+            text1 = ''
+            lable.config(text=text1)
+
+
+        
+        
+    
+def umn():
+    global op
+    if make_op():
+        op = "*"
+    
+def delit():
+    global op
+    if make_op():
+        op = "/"
+
+def ravno():
+    global op, pred
+    if make_op():
+        op = "="
+        make_op()
+        op = None
+        lable.config(text = pred)
+
+root = Tk()
+root.minsize(250, 200)
+button1=Button(root,text='1',width=3,height=1,command=pr1)
+button2=Button(root,text='2',width=3,height=1,command=pr2)
+button3=Button(root,text='3',width=3,height=1,command=pr3)
+button4=Button(root,text='4',width=3,height=1,command=pr4)
+button5=Button(root,text='5',width=3,height=1,command=pr5)
+button6=Button(root,text='6',width=3,height=1,command=pr6)
+button7=Button(root,text='7',width=3,height=1,command=pr7)
+button8=Button(root,text='8',width=3,height=1,command=pr8)
+button9=Button(root,text='9',width=3,height=1,command=pr9)
+button0=Button(root,text='0',width=3,height=1,command=pr0)
+buttonce=Button(root,text='CE',width=3,height=1,command=ce)
+buttonst=Button(root,text='X^Y',width=3,height=1,command=st)
+buttonbacks=Button(root,text='<-',width=3,height=1,command=backs)
+buttonpl=Button(root,text='+',width=3,height=1,command=plus)
+buttonmin=Button(root,text='-',width=3,height=1,command=minus)
+buttonumn=Button(root,text='*',width=3,height=1,command=umn)
+buttondel=Button(root,text='/',width=3,height=1,command=delit)
+buttonrav=Button(root,text='=',width=3,height=1,command=ravno)
+buttonkor=Button(root,text='kor',width=3,height=1,command=cor)
+buttonst=Button(root,text='X^Y',width=3,height=1,command=st)
+buttonkva=Button(root,text='X^2',width=3,height=1,command=kva)
+buttonplmin=Button(root,text='±',width=3,height=1,command=plmin)
+buttonMS=Button(root,text='MS',width=3,height=1,bg='lightblue',fg='blue',command=M_set)
+buttonMC=Button(root,text='MC',width=3,height=1,bg='lightblue',fg='blue',command=M_clear)
+buttonMR=Button(root,text='MR',width=3,height=1,bg='lightblue',fg='blue',command=MR)
+buttonMP=Button(root,text='M+',width=3,height=1,bg='lightblue',fg='blue',command=M_plus)
+buttonMM=Button(root,text='M-',width=3,height=1,bg='lightblue',fg='blue',command=M_minus)
+
+memory_set = Label(root,bd = 4,width=1,height=1,fg='black',font='arial 14')
+memory_set.place(x=170, y=30)
+
+
+op = None
+pred = None
+memory = 0
+
+text1 = ""
+lable = Label(root,bd = 4,width=15,height=1,fg='red',font='arial 14')
+lable.place(x=0, y=0)
+button1.place(x=0, y=30)
+button2.place(x=40, y=30)
+button3.place(x=80, y=30)
+button4.place(x=0, y=60)
+button5.place(x=40, y=60)
+button6.place(x=80, y=60)
+button7.place(x=0, y=90)
+button8.place(x=40, y=90)
+button9.place(x=80, y=90)
+button0.place(x=40, y=120)
+buttonce.place(x=0, y=120)
+buttonbacks.place(x=80, y=120)
+buttonpl.place(x=120, y=30)
+buttonmin.place(x=120, y=60)
+buttonumn.place(x=120, y=90)
+buttondel.place(x=120, y=120)
+buttonrav.place(x=120, y=150)
+buttonst.place(x=160, y=150)
+buttonkor.place(x=160, y=120)
+buttonkva.place(x=160, y=90)
+buttonplmin.place(x=80,y=150)
+buttonMS.place(x=200,y=30)
+buttonMR.place(x=200,y=60)
+buttonMC.place(x=200,y=90)
+buttonMP.place(x=200,y=120)
+buttonMM.place(x=200,y=150)
+root.mainloop()
